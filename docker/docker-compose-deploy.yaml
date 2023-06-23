@@ -38,10 +38,10 @@ services:
     container_name: em-web
     build: ../backend/
     restart: always
+    entrypoint: /app/entrypoint.sh
     volumes:
       - static:/app/static/
       - media:/app/media/
-      - ./project/:/app/
     depends_on:
       - db
       - elasticsearch
@@ -53,8 +53,6 @@ services:
     container_name: em-celery-worker
     build: ../backend
     restart: always
-    volumes:
-      - ./project/:/app/
     depends_on:
       - web
       - redis
@@ -66,8 +64,6 @@ services:
     container_name: em-celery-beat
     build: ../backend
     restart: always
-    volumes:
-      - ./project/:/app/
     depends_on:
       - web
       - redis
